@@ -1,0 +1,31 @@
+{
+  "name": "google-docs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx tsc",
+    "start": "node dist/src/index.js ",
+    "dev": "set NODE_ENV=development && concurrently \"npx tsc --watch\" \"nodemon -q dist/src/index.js\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "pg": "^8.11.3",
+    "sequelize": "^6.35.2",
+    "sequelize-typescript": "^2.1.6"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.11.16",
+    "@types/sequelize": "^4.28.20",
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.0.3",
+    "sequelize-cli": "^6.6.2",
+    "typescript": "^5.3.3"
+  }
+}
