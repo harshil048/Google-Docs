@@ -18,6 +18,7 @@ const catch_async_1 = __importDefault(require("../../../middleware/catch-async")
 const document_model_1 = require("../../../db/models/document.model");
 const user_model_1 = require("../../../db/models/user.model");
 const document_user_model_1 = require("../../../db/models/document-user.model");
+const mail_service_1 = require("../../../services/mail.service");
 class ShareController {
     constructor() {
         this.create = (0, catch_async_1.default)((req, res) => __awaiter(this, void 0, void 0, function* () {
@@ -47,11 +48,12 @@ class ShareController {
                 permission: permission,
             });
             const mail = {
-                from: "harshilbambhroliya048@gmail.com",
+                from: "harshilarcade@gmail.com",
                 to: sharedUser.email,
                 subject: `${(_c = req.user) === null || _c === void 0 ? void 0 : _c.email} shared a document with you!`,
                 text: `Click the follwing link to view and edit the document : http://localhost:3000/document/${id}`,
             };
+            yield mail_service_1.mailService.sendMail(mail);
             return res.status(201).json(documentUser);
         }));
         this.delete = (0, catch_async_1.default)((req, res) => __awaiter(this, void 0, void 0, function* () {

@@ -4,6 +4,7 @@ import { Request, Response } from "express";
 import { Document } from "../../../db/models/document.model";
 import { User } from "../../../db/models/user.model";
 import { DocumentUser } from "../../../db/models/document-user.model";
+import { mailService } from "../../../services/mail.service";
 
 class ShareController {
   public create = catchAsync(async (req: Request, res: Response) => {
@@ -37,11 +38,13 @@ class ShareController {
     });
 
     const mail = {
-      from: "harshilbambhroliya048@gmail.com",
+      from: "harshilarcade@gmail.com",
       to: sharedUser.email,
       subject: `${req.user?.email} shared a document with you!`,
       text: `Click the follwing link to view and edit the document : http://localhost:3000/document/${id}`,
     };
+
+    await mailService.sendMail(mail);
 
     return res.status(201).json(documentUser);
   });
