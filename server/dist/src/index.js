@@ -7,10 +7,16 @@ const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const models_1 = __importDefault(require("./db/models"));
 const routes_1 = __importDefault(require("./routes"));
+const cors_1 = __importDefault(require("cors"));
+const errorHandler_1 = __importDefault(require("./middleware/errorHandler"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
+app.use((0, cors_1.default)({
+    origin: "*",
+}));
 app.use(routes_1.default);
+app.use(errorHandler_1.default);
 const port = 8080;
 models_1.default.sequelize.sync();
 // app.get("/", (req: Request, res: Response) => {
