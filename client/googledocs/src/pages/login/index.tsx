@@ -8,10 +8,10 @@ import validator from 'validator';
 const Login = () => {
 
   const {widthStr, heightStr} = useWindowSize();
-  const {email, setEmail} = useState('');
-  const {emailErrors, setEmailErrors} = useState<Array<string>>([]);
-  const {password, setPassword} = useState('');
-  const {passwordErrors, setPasswordErrors} = useState<Array<string>>([]);
+  const [email, setEmail] = useState("");
+  const [emailErrors, setEmailErrors] = useState<Array<string>>([]);
+  const [password, setPassword] = useState("");
+  const [passwordErrors, setPasswordErrors] = useState<Array<string>>([]);
 
   const validate = ()=>{
     setEmailErrors([]);
