@@ -3,6 +3,7 @@ import InputProps from "../../../types/interfaces/input";
 import InputMask from "inputmask";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline";
 import { ExclamationCircleIcon } from "@heroicons/react/solid";
+import Errors from "../errors/errors";
 
 interface TextFieldProps extends InputProps {
   value?: string | number;
@@ -98,7 +99,8 @@ const TextField = ({
           </div>
         ) : null}
       </div>
-      
+      <Errors errors={errors} />
     </div>
   );
 };
+export default TextField;
