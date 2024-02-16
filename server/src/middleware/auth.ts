@@ -57,6 +57,6 @@ const authorize = (permittedRoles: Array<RoleEnum>) => {
         console.log(error);
         return res.sendStatus(403);
       });
-  };
+  }
 };
 export { authenticate, authorize };
