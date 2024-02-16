@@ -1,10 +1,12 @@
 // import React from "react";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import TextField from "../../components/atoms/text-field";
 import useWindowSize from "../../hooks/use-window-size";
 import validator from 'validator';
 import AuthService from "../../services/auth-service";
+import useAuth from "../../hooks/use-auth";
+import { ToastContext } from "../../contexts/toast-context";
 
 const Login = () => {
 
@@ -14,6 +16,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [passwordErrors, setPasswordErrors] = useState<Array<string>>([]);
   const [loading, setLoading] = useState(false);
+  const {login} = useAuth();
+  const {success, error} = useContext(ToastContext);
 
   const validate = ()=>{
     setEmailErrors([]);
@@ -37,8 +41,8 @@ const Login = () => {
     try {
       const response = await AuthService.login({email, password});
       const {accessToken: newAccessToken, refreshToken: newRefreshToken} = response.data;
-
-      
+      login(newAccessToken, newRefreshToken);
+      success("Logged in successfully!");
     } catch (error) {
       
     }

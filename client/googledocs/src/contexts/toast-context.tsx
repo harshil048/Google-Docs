@@ -2,6 +2,7 @@ import { createContext, useState } from "react";
 import ActionInterface from "../types/interfaces/action";
 import ToastInterface from "../types/interfaces/toast";
 import { v4 as uuid } from "uuid";
+import ToastManager from "../components/organisms/toast-manager/toast-manager";
 
 const TOST_DURATION = 5000;
 
@@ -94,6 +95,7 @@ export const ToastProvider = ({ children }: { children: JSX.Element }) => {
       }}
     >
       {children}
+      <ToastManager />
     </ToastContext.Provider>
   );
 };
