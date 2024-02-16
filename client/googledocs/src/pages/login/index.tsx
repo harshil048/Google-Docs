@@ -4,6 +4,7 @@ import { useState } from "react";
 import TextField from "../../components/atoms/text-field";
 import useWindowSize from "../../hooks/use-window-size";
 import validator from 'validator';
+import AuthService from "../../services/auth-service";
 
 const Login = () => {
 
@@ -12,6 +13,7 @@ const Login = () => {
   const [emailErrors, setEmailErrors] = useState<Array<string>>([]);
   const [password, setPassword] = useState("");
   const [passwordErrors, setPasswordErrors] = useState<Array<string>>([]);
+  const [loading, setLoading] = useState(false);
 
   const validate = ()=>{
     setEmailErrors([]);
@@ -29,6 +31,19 @@ const Login = () => {
     return isValid;
   };
 
+  const loginUser = async () => {
+    if(!validate()) return;
+    setLoading(true);
+    try {
+      const response = await AuthService.login({email, password});
+      const {accessToken: newAccessToken, refreshToken: newRefreshToken} = response.data;
+
+      
+    } catch (error) {
+      
+    }
+  }
+
   const handleOnInputEmail = (value:string)=>{
     setEmailErrors([]);
     setEmail(value);
@@ -37,6 +52,9 @@ const Login = () => {
     setPasswordErrors([]);
     setPassword(value);
   }
+
+
+
   return (
   <div className="w-full flex flex-col sm:justify-center items-center p-6 sm:pb-6 bg-gray-100 dark:bg-slate-900 text-primary" style={{width: widthStr, height: heightStr}}>
     <div className="w-full max-w-sm bg-white dark:bg-slate-800 rounded border-primary shadow-md brder dark:border-0 dark:shadow-xl p-6">
