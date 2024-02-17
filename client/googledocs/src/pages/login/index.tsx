@@ -18,7 +18,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const { success, error } = useContext(ToastContext);
-  const  navigate  = useNavigate();
+  const navigate = useNavigate();
 
   const validate = () => {
     setEmailErrors([]);
