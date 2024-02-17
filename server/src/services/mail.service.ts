@@ -7,5 +7,5 @@ class MailService {
   };
 }
 
-const mailService = new MailService();
-export { mailService };
+const mailservice = new MailService();
+export { mailservice };

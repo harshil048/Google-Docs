@@ -27,7 +27,7 @@ class UserService {
         this.createUser = (email, password) => __awaiter(this, void 0, void 0, function* () {
             const salt = yield (0, bcrypt_1.genSalt)();
             const hashedPassword = yield (0, bcrypt_1.hash)(password, salt);
-            const verificationToken = jsonwebtoken_1.default.sign({ email }, "verify_secret");
+            const verificationToken = jsonwebtoken_1.default.sign({ email }, "verify_email");
             const user = yield user_model_1.User.create({
                 email: email,
                 password: hashedPassword,
@@ -37,21 +37,21 @@ class UserService {
         });
         this.sendVerificationEmail = (user) => __awaiter(this, void 0, void 0, function* () {
             const mail = {
-                from: "harshilarcade@gmail.com",
+                from: "kuluruvineeth8623@gmail.com",
                 to: user.email,
                 subject: "Welcome to google docs",
                 text: `click the following link to verify email: http://localhost:3000/user/verify-email/${user.verificationToken}`,
             };
-            yield mail_service_1.mailService.sendMail(mail);
+            yield mail_service_1.mailservice.sendMail(mail);
         });
         this.sendPasswordResetEmail = (user) => __awaiter(this, void 0, void 0, function* () {
             const mail = {
-                from: "harshilarcade@gmail.com",
+                from: "kuluruvineeth8623@gmail.com",
                 to: user.email,
                 subject: "Reset Your Password",
                 text: `http://localhost:3000/user/reset-email/${user.passwordResetToken}`,
             };
-            yield mail_service_1.mailService.sendMail(mail);
+            yield mail_service_1.mailservice.sendMail(mail);
         });
         this.checkPassword = (user, password) => __awaiter(this, void 0, void 0, function* () {
             return yield (0, bcrypt_1.compare)(password, user.password);

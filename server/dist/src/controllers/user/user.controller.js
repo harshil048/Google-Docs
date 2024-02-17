@@ -51,7 +51,7 @@ class UserController {
         }));
         this.verifyEmail = (0, catch_async_1.default)((req, res) => __awaiter(this, void 0, void 0, function* () {
             const verificationToken = req.params.token;
-            jsonwebtoken_1.default.verify(verificationToken, "verify-email", (err, decoded) => __awaiter(this, void 0, void 0, function* () {
+            jsonwebtoken_1.default.verify(verificationToken, "verify_email", (err, decoded) => __awaiter(this, void 0, void 0, function* () {
                 if (err)
                     return res.sendStatus(403);
                 try {

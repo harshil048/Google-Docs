@@ -2,7 +2,7 @@ import { User } from "../db/models/user.model";
 import { compare, genSalt, hash } from "bcrypt";
 import jwt from "jsonwebtoken";
 import { RefreshToken } from "../db/models/refresh-token.model";
-import { mailService } from "./mail.service";
+import { mailservice } from "./mail.service";
 
 class UserService {
   public findUserByEmail = async (email: string): Promise<User | null> => {
@@ -13,7 +13,7 @@ class UserService {
   public createUser = async (email: string, password: string) => {
     const salt = await genSalt();
     const hashedPassword = await hash(password, salt);
-    const verificationToken = jwt.sign({ email }, "verify_secret");
+    const verificationToken = jwt.sign({ email }, "verify_email");
     const user = await User.create({
       email: email,
       password: hashedPassword,
@@ -25,24 +25,24 @@ class UserService {
 
   private sendVerificationEmail = async (user: User) => {
     const mail = {
-      from: "harshilarcade@gmail.com",
+      from: "kuluruvineeth8623@gmail.com",
       to: user.email,
       subject: "Welcome to google docs",
       text: `click the following link to verify email: http://localhost:3000/user/verify-email/${user.verificationToken}`,
     };
 
-    await mailService.sendMail(mail);
+    await mailservice.sendMail(mail);
   };
 
   private sendPasswordResetEmail = async (user: User) => {
     const mail = {
-      from: "harshilarcade@gmail.com",
+      from: "kuluruvineeth8623@gmail.com",
       to: user.email,
       subject: "Reset Your Password",
       text: `http://localhost:3000/user/reset-email/${user.passwordResetToken}`,
     };
 
-    await mailService.sendMail(mail);
+    await mailservice.sendMail(mail);
   };
   public checkPassword = async (
     user: User,

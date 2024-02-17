@@ -50,7 +50,7 @@ class UserController {
 
     jwt.verify(
       verificationToken,
-      "verify-email",
+      "verify_email",
       async (err: VerifyErrors | null, decoded: unknown) => {
         if (err) return res.sendStatus(403);
         try {

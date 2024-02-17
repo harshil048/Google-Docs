@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.mailService = void 0;
+exports.mailservice = void 0;
 const smtp_config_1 = __importDefault(require("../config/smtp.config"));
 class MailService {
     constructor() {
@@ -21,5 +21,5 @@ class MailService {
         });
     }
 }
-const mailService = new MailService();
-exports.mailService = mailService;
+const mailservice = new MailService();
+exports.mailservice = mailservice;
