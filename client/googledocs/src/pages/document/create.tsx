@@ -1,3 +1,4 @@
+import DocumentCreateHeader from "../../components/organisms/toast-manager/document-create-header";
 import useAuth from "../../hooks/use-auth";
 import useDocuments from "../../hooks/use-documents";
 import useWindowSize from "../../hooks/use-window-size";
@@ -11,6 +12,12 @@ const Create = () => {
     documents === null ? [] : documents.filter((doc) => doc.userId === userId);
   const sharedDocuments =
     documents === null ? [] : documents.filter((doc) => doc.userId !== userId);
-  
-  
+
+  return (
+    <div style={{ height: heightStr }}>
+      <DocumentCreateHeader />
+    </div>
+  );
 };
+
+export default Create;
