@@ -1,3 +1,6 @@
+import CreateDocumentButton from "../../components/atoms/create-document-button";
+import Spinner from "../../components/atoms/spinner/spinner";
+import DocumentList from "../../components/molecules/document-list";
 import DocumentCreateHeader from "../../components/organisms/toast-manager/document-create-header";
 import useAuth from "../../hooks/use-auth";
 import useDocuments from "../../hooks/use-documents";
@@ -9,13 +12,35 @@ const Create = () => {
 
   const { documents, loading, setDocuments } = useDocuments();
   const recentDocuments =
-    documents === null ? [] : documents.filter((doc) => doc.userId === userId);
+    documents === undefined
+      ? []
+      : documents.filter((document) => document.userId === userId);
+
   const sharedDocuments =
-    documents === null ? [] : documents.filter((doc) => doc.userId !== userId);
+    documents === undefined
+      ? []
+      : documents.filter((document) => document.userId !== userId);
 
   return (
     <div style={{ height: heightStr }}>
       <DocumentCreateHeader />
+      <CreateDocumentButton />
+      {loading ? (
+        <Spinner size="lg"></Spinner>
+      ) : (
+        <>
+          <DocumentList
+            title="Recent Documents"
+            documents={recentDocuments}
+            setDocuments={setDocuments}
+          />
+          <DocumentList
+            title="Shared Documents"
+            documents={sharedDocuments}
+            setDocuments={setDocuments}
+          />
+        </>
+      )}
     </div>
   );
 };
