@@ -15,6 +15,7 @@ const DocumentMenuButton = ({
   setDocuments,
 }: DocumentMenuButtonProps) => {
   const { accessToken } = useAuth();
+
   const [loading, setLoading] = useState(false);
   const dropdownRef = useRef(null);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -22,22 +23,24 @@ const DocumentMenuButton = ({
 
   const handleDeleteBtnClick = async () => {
     if (accessToken === null) return;
+
     setLoading(true);
 
     try {
       await DocumentService.delete(accessToken, documentId);
-      setDocuments((allDoucments: Array<DocumentInterface>) => {
-        allDoucments.filter((document) => document.id !== documentId);
-      });
+      setDocuments((allDocuments: Array<DocumentInterface>) =>
+        allDocuments.filter((document) => document.id !== documentId)
+      );
     } catch (err) {
-      error("Unable to delete document");
+      error("Unable to delete document. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
   const handleMenuBtnBlur = (event: FocusEvent<HTMLButtonElement>) => {
-    const classList = (event.target as HTMLElement).classList;
+    const classList = (event.target as HTMLButtonElement).classList;
+
     if (!classList.contains("document-menu")) {
       setShowDropdown(false);
     }
@@ -91,4 +94,5 @@ const DocumentMenuButton = ({
     </div>
   );
 };
+
 export default DocumentMenuButton;
