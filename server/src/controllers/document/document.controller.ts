@@ -3,6 +3,7 @@ import catchAsync from "../../middleware/catch-async";
 import documentService from "../../services/document.service";
 import { Document } from "../../db/models/document.model";
 import { DocumentUser } from "../../db/models/document-user.model";
+import { json } from "sequelize";
 import { validationResult } from "express-validator";
 
 class DocumentController {
@@ -16,10 +17,9 @@ class DocumentController {
       parseInt(req.user.id)
     );
 
-    if (!document) {
-      return res.sendStatus(404);
-    }
-    return res.sendStatus(200).json(document);
+    if (document === null) return res.sendStatus(404);
+
+    return res.status(200).json(document);
   });
 
   public getAll = catchAsync(async (req: Request, res: Response) => {
@@ -28,7 +28,6 @@ class DocumentController {
         userId: req.user?.id,
       },
     });
-
     const documentUsers = await DocumentUser.findAll({
       where: {
         userId: req.user?.id,
@@ -49,53 +48,54 @@ class DocumentController {
 
   public update = catchAsync(async (req: Request, res: Response) => {
     const err = validationResult(req);
-    if (!err.isEmpty()) return res.sendStatus(400).json(err);
-
-    if (!req.user) {
-      return res.sendStatus(401);
+    if (!err.isEmpty()) {
+      return res.status(400).json(err);
     }
 
-    const { id } = req.params;
+    if (!req.user) return res.sendStatus(401);
 
-    const { title, content, isPubic } = req.body;
+    const { id } = req.params;
+    const { title, content, isPublic } = req.body;
 
     const document = await documentService.findDocumentById(
       parseInt(id),
-      parseInt(req.user?.id)
+      parseInt(req.user.id)
     );
 
-    if (!document) {
-      return res.sendStatus(404);
-    }
+    if (document === null) return res.sendStatus(404);
 
     if (title !== undefined && title !== null) document.title = title;
     if (content !== undefined && content !== null) document.content = content;
-    if (isPubic !== undefined && isPubic !== null) document.isPublic = isPubic;
+    if (isPublic !== undefined && isPublic !== null)
+      document.isPublic = isPublic;
 
     await document.save();
+
     return res.sendStatus(200);
   });
 
-  public create = catchAsync(async(req: Request, res: Response)=>{
+  public create = catchAsync(async (req: Request, res: Response) => {
     const document = await Document.create({
-      userId: req.user?.id
-    })
+      userId: req.user?.id,
+    });
 
-    return res.sendStatus(201).json(document);
-  })
+    return res.status(201).json(document);
+  });
 
-  public delete = catchAsync(async(req: Request, res: Response)=>{
-    const {id} = req.params
+  public delete = catchAsync(async (req: Request, res: Response) => {
+    const { id } = req.params;
+
     await Document.destroy({
-      where:{
+      where: {
         id: id,
-        userId: req.user?.id
-      }
-    })
+        userId: req.user?.id,
+      },
+    });
 
-    return res.sendStatus(201);
-  })
+    return res.sendStatus(200);
+  });
 }
 
 const documentController = new DocumentController();
+
 export { documentController };

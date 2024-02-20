@@ -18,7 +18,10 @@ const CreateDocumentButton = () => {
     setLoading(true);
     try {
       const response = await DocumentService.create(accessToken);
+      console.log(response);
       const { id } = response.data as DocumentInterface;
+      console.log(id);
+
       navigate(`/document/${id}`);
     } catch (err) {
       error("Unable to create document");
@@ -41,11 +44,9 @@ const CreateDocumentButton = () => {
               <span className={`${loading && "opacity-0"}`}>
                 <PlusIcon className="w-16 h-16 text-red-500"></PlusIcon>
               </span>
-              {loading && <Spinner size='md'></Spinner>}
+              {loading && <Spinner size="md"></Spinner>}
             </button>
-            <h3 className="text-sm">
-              Blank
-            </h3>
+            <h3 className="text-sm">Blank</h3>
           </div>
         </div>
       </div>

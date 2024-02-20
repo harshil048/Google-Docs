@@ -44,35 +44,36 @@ const defaultValues = {
 export const DocumentContext =
   createContext<DocumentContextInterface>(defaultValues);
 
-export const DocumentProvider = ({ children }: { children: JSX.Element }) => {
+interface DocumentProviderInterface {
+  children: JSX.Element;
+}
+
+export const DocumentProvider = ({ children }: DocumentProviderInterface) => {
   const { error } = useContext(ToastContext);
   const { accessToken } = useAuth();
 
-  const [document, setDocument] = useState<DocumentInterface | null>(
+  const [document, setDocument] = useState<null | DocumentInterface>(
     defaultValues.document
   );
   const [errors, setErrors] = useState<Array<string>>(defaultValues.errors);
-  const [loading, setLoading] = useState<boolean>(defaultValues.loading);
-  const [saving, setSaving] = useState<boolean>(defaultValues.saving);
-  const [currentUsers, setCurrentUsers] = useState<Set<string>>(
-    defaultValues.currentUsers
-  );
+  const [loading, setLoading] = useState(defaultValues.loading);
+  const [saving, setSaving] = useState(defaultValues.saving);
+  const [currentUsers, setCurrentUsers] = useState(defaultValues.currentUsers);
 
   const setDocumentTitle = (title: string) => {
     setDocument({ ...document, title } as DocumentInterface);
   };
 
   const saveDocument = async (updatedDocument: DocumentInterface) => {
-    if (accessToken === null) {
-      error("You must be logged in to save a document");
-      return;
-    }
+    if (accessToken === null) return;
+
     setSaving(true);
+
     try {
       await DocumentService.update(accessToken, updatedDocument);
       setDocument(updatedDocument);
     } catch (error) {
-      setErrors(["There was an error saving the document"]);
+      setErrors(["There was an error saving the document. Please try again."]);
     } finally {
       setSaving(false);
     }

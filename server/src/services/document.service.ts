@@ -13,7 +13,7 @@ class DocumentService {
           },
           {
             id: id,
-            isPubic: true,
+            isPublic: true,
           },
         ],
       },
@@ -34,6 +34,7 @@ class DocumentService {
 
       document = sharedDocument.document;
     }
+
     return document;
   };
 }

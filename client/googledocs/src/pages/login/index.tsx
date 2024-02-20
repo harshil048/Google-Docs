@@ -8,6 +8,7 @@ import AuthService from "../../services/auth-service";
 import useAuth from "../../hooks/use-auth";
 import { ToastContext } from "../../contexts/toast-context";
 import { useNavigate } from "react-router-dom";
+import Logo from "../../components/atoms/logo/logo";
 
 const Login = () => {
   const { widthStr, heightStr } = useWindowSize();
@@ -75,7 +76,7 @@ const Login = () => {
       <div className="w-full max-w-sm bg-white dark:bg-slate-800 rounded border-primary shadow-md brder dark:border-0 dark:shadow-xl p-6">
         <div className="flex flex-col space-y-4">
           <div className="w-full text-center flex flex-col justify-center items-center">
-            <h1>Logo</h1>
+            <Logo />
             <h1 className="font-medium text-2xl">Sign In</h1>
             <p className="font-medium">to contiue to Docs</p>
           </div>

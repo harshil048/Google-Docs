@@ -25,10 +25,9 @@ class DocumentController {
                 return res.sendStatus(401);
             const { id } = req.params;
             const document = yield document_service_1.default.findDocumentById(parseInt(id), parseInt(req.user.id));
-            if (!document) {
+            if (document === null)
                 return res.sendStatus(404);
-            }
-            return res.sendStatus(200).json(document);
+            return res.status(200).json(document);
         }));
         this.getAll = (0, catch_async_1.default)((req, res) => __awaiter(this, void 0, void 0, function* () {
             var _a, _b;
@@ -50,45 +49,43 @@ class DocumentController {
             return res.status(200).json(documents);
         }));
         this.update = (0, catch_async_1.default)((req, res) => __awaiter(this, void 0, void 0, function* () {
-            var _c;
             const err = (0, express_validator_1.validationResult)(req);
-            if (!err.isEmpty())
-                return res.sendStatus(400).json(err);
-            if (!req.user) {
+            if (!err.isEmpty()) {
+                return res.status(400).json(err);
+            }
+            if (!req.user)
                 return res.sendStatus(401);
-            }
             const { id } = req.params;
-            const { title, content, isPubic } = req.body;
-            const document = yield document_service_1.default.findDocumentById(parseInt(id), parseInt((_c = req.user) === null || _c === void 0 ? void 0 : _c.id));
-            if (!document) {
+            const { title, content, isPublic } = req.body;
+            const document = yield document_service_1.default.findDocumentById(parseInt(id), parseInt(req.user.id));
+            if (document === null)
                 return res.sendStatus(404);
-            }
             if (title !== undefined && title !== null)
                 document.title = title;
             if (content !== undefined && content !== null)
                 document.content = content;
-            if (isPubic !== undefined && isPubic !== null)
-                document.isPublic = isPubic;
+            if (isPublic !== undefined && isPublic !== null)
+                document.isPublic = isPublic;
             yield document.save();
             return res.sendStatus(200);
         }));
         this.create = (0, catch_async_1.default)((req, res) => __awaiter(this, void 0, void 0, function* () {
-            var _d;
+            var _c;
             const document = yield document_model_1.Document.create({
-                userId: (_d = req.user) === null || _d === void 0 ? void 0 : _d.id
+                userId: (_c = req.user) === null || _c === void 0 ? void 0 : _c.id,
             });
-            return res.sendStatus(201).json(document);
+            return res.status(201).json(document);
         }));
         this.delete = (0, catch_async_1.default)((req, res) => __awaiter(this, void 0, void 0, function* () {
-            var _e;
+            var _d;
             const { id } = req.params;
             yield document_model_1.Document.destroy({
                 where: {
                     id: id,
-                    userId: (_e = req.user) === null || _e === void 0 ? void 0 : _e.id
-                }
+                    userId: (_d = req.user) === null || _d === void 0 ? void 0 : _d.id,
+                },
             });
-            return res.sendStatus(201);
+            return res.sendStatus(200);
         }));
     }
 }

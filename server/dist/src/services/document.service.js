@@ -24,7 +24,7 @@ class DocumentService {
                         },
                         {
                             id: id,
-                            isPubic: true,
+                            isPublic: true,
                         },
                     ],
                 },
