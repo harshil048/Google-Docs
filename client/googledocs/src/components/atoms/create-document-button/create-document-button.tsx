@@ -20,7 +20,6 @@ const CreateDocumentButton = () => {
       const response = await DocumentService.create(accessToken);
       console.log(response);
       const { id } = response.data as DocumentInterface;
-      console.log(id);
 
       navigate(`/document/${id}`);
     } catch (err) {

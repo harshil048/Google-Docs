@@ -5,13 +5,13 @@ import DocumentInterface from "../../../types/interfaces/document";
 import DocumentService from "../../../services/document-service";
 import Logo from "../../atoms/logo/logo";
 import UserDropDown from "../../atoms/user-dropdown/user-dropdown";
-// import useRandomBackground from "../../../hooks/use-random-background";
+import useRandomBackground from "../../../hooks/use-random-bg";
 // import ShareDocumentModal from "../share-document-modal/share-document-modal";
 
 const CurrentUsers = () => {
   const { email } = useAuth();
   const { currentUsers } = useContext(DocumentContext);
-  // const { backgroundColor } = useRandomBackground();
+  const { backgroundColor } = useRandomBackground();
   return (
     <>
       {Array.from(currentUsers)
@@ -20,7 +20,7 @@ const CurrentUsers = () => {
           return (
             <div
               key={currentUser}
-              className={` w-8 h-8 text-white font-semibold flex justify-center items-center rounded-full flex-shrink-0 uppercase ring-2`}
+              className={`${backgroundColor} w-8 h-8 text-white font-semibold flex justify-center items-center rounded-full flex-shrink-0 uppercase ring-2`}
             >
               {currentUser[0]}
             </div>
@@ -57,11 +57,6 @@ const DocumentMenuBar = () => {
       ...document,
       title,
     } as DocumentInterface;
-    console.log(document.id);
-
-    console.log(saving);
-    console.log(document.id);
-    console.log(updatedDocument);
     try {
       await DocumentService.update(accessToken, updatedDocument);
     } catch (error) {
