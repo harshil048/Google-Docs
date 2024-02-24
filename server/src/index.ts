@@ -16,14 +16,11 @@ app.use(
 );
 app.use(router);
 app.use(errorHandler);
-const port = 8080;
 
 db.sequelize.sync();
 
-// app.get("/", (req: Request, res: Response) => {
-//   res.send("Expresssdasd");
+// app.listen(port, () => {
+//   console.log(`Server is running on port: ${port}`);
 // });
 
-app.listen(port, () => {
-  console.log(`Server is running on port: ${port}`);
-});
+export default app;

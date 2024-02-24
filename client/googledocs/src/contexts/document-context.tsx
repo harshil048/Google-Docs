@@ -52,7 +52,7 @@ export const DocumentProvider = ({ children }: DocumentProviderInterface) => {
   const { error } = useContext(ToastContext);
   const { accessToken } = useAuth();
 
-  const [document, setDocument] = useState<DocumentInterface | null>(
+  const [document, setDocument] = useState<null | DocumentInterface>(
     defaultValues.document
   );
   const [errors, setErrors] = useState<Array<string>>(defaultValues.errors);

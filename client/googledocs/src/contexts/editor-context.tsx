@@ -19,10 +19,10 @@ import { FONTS } from "../components/atoms/font-select";
 import { DocumentContext } from "./document-context";
 import { ToastContext } from "./toast-context";
 import useAuth from "../hooks/use-auth";
-import SocketEvent from "../types/enums/socket-events-enum";
 import DocumentInterface from "../types/interfaces/document";
-import { BASE_URL } from "../services/api";
 import { io } from "socket.io-client";
+import { BASE_URL } from "../services/api";
+import SocketEvent from "../types/enums/socket-events-enum";
 
 interface EditorContextInterface {
   editorState: EditorState;
@@ -53,10 +53,14 @@ const defaultValues = {
 export const EditorContext =
   createContext<EditorContextInterface>(defaultValues);
 
-const DEFAULT_SAVE_TIME = 1500;
-let saveInterval: null | NodeJS.Timeout = null;
+interface EditorProviderInterface {
+  children: JSX.Element;
+}
 
-export const EditorProvider = ({ children }: { children: JSX.Element }) => {
+const DEFAULT_SAVE_TIME = 1500;
+let saveInterval: null | NodeJS.Timer = null;
+
+export const EditorProvider = ({ children }: EditorProviderInterface) => {
   const [editorState, setEditorState] = useState(defaultValues.editorState);
   const socket = useRef<any>(defaultValues.socket);
   const [documentRendered, setDocumentRendered] = useState(
@@ -76,14 +80,15 @@ export const EditorProvider = ({ children }: { children: JSX.Element }) => {
     editorRef.current.focus();
   };
 
-  // Send Changes to Server
+  //Send Changes
   const handleEditorChange = (editorState: EditorState) => {
-    setEditorState(editorState);
+    setEditorState(EditorState.moveSelectionToEnd(editorState));
 
     if (socket === null) return;
 
     const content = convertToRaw(editorState.getCurrentContent());
-    socket.current.emit(SocketEvent.SEND_CHAGES, content);
+
+    socket.current.emit(SocketEvent.SEND_CHANGES, content);
 
     const updatedDocument = {
       ...document,
@@ -98,17 +103,16 @@ export const EditorProvider = ({ children }: { children: JSX.Element }) => {
     setSaving(true);
 
     if (saveInterval !== null) {
-      clearInterval(saveInterval);
+      clearInterval(Number(saveInterval));
     }
 
     saveInterval = setInterval(async () => {
       await saveDocument(updatedDocument);
-      if (saveInterval) clearInterval(saveInterval);
+      if (saveInterval) clearInterval(Number(saveInterval));
     }, DEFAULT_SAVE_TIME);
   };
 
-  //load document content
-
+  //Load document content
   useEffect(() => {
     if (documentRendered || document === null || document.content === null)
       return;
@@ -117,18 +121,16 @@ export const EditorProvider = ({ children }: { children: JSX.Element }) => {
       const contentState = convertFromRaw(
         JSON.parse(document.content) as RawDraftContentState
       );
-
       const newEditorState = EditorState.createWithContent(contentState);
-      setEditorState(newEditorState);
+      setEditorState(EditorState.moveSelectionToEnd(newEditorState));
     } catch {
-      error("Error when loading document");
+      error("Error when loading document.");
     } finally {
       setDocumentRendered(true);
     }
   }, [document]);
 
   //Connect Socket
-
   useEffect(() => {
     if (
       document === null ||
@@ -139,27 +141,25 @@ export const EditorProvider = ({ children }: { children: JSX.Element }) => {
       return;
 
     socket.current = io(BASE_URL, {
-      query: { documentId: document?.id, accessToken },
+      query: { documentId: document.id, accessToken },
     }).connect();
-  }, [document, accessToken, socket]);
+  }, [document, socket, accessToken]);
 
   //Disconnect Socket
-
   useEffect(() => {
     return () => {
-      socket.current.disconnect();
+      socket?.current?.disconnect();
     };
   }, []);
 
-  //Receive Changes from Server
-
+  //Receive Changes
   useEffect(() => {
     if (socket.current === null) return;
 
     const handler = (rawDraftContentState: RawDraftContentState) => {
       const contentState = convertFromRaw(rawDraftContentState);
       const newEditorState = EditorState.createWithContent(contentState);
-      setEditorState(newEditorState);
+      setEditorState(EditorState.moveSelectionToEnd(newEditorState));
     };
 
     socket.current.on(SocketEvent.RECEIVE_CHANGES, handler);
@@ -170,7 +170,6 @@ export const EditorProvider = ({ children }: { children: JSX.Element }) => {
   }, [socket.current]);
 
   //current users updated
-
   useEffect(() => {
     if (socket.current === null) return;
 
@@ -178,10 +177,10 @@ export const EditorProvider = ({ children }: { children: JSX.Element }) => {
       setCurrentUsers(new Set<string>(currentUsers));
     };
 
-    socket.current.on(SocketEvent.CURRENT_USER_UPDATE, handler);
+    socket.current.on(SocketEvent.CURRENT_USERS_UPDATE, handler);
 
     return () => {
-      socket.current.off(SocketEvent.CURRENT_USER_UPDATE, handler);
+      socket.current.off(SocketEvent.CURRENT_USERS_UPDATE, handler);
     };
   }, [socket.current]);
 

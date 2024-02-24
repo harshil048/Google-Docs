@@ -6,8 +6,7 @@ import DocumentService from "../../../services/document-service";
 import Logo from "../../atoms/logo/logo";
 import UserDropDown from "../../atoms/user-dropdown/user-dropdown";
 import useRandomBackground from "../../../hooks/use-random-bg";
-import ShareDocumentModal from "../share-document-model/share-document-model";
-// import ShareDocumentModal from "../share-document-modal/share-document-modal";
+import ShareDocumentModel from "../share-document-model";
 
 const CurrentUsers = () => {
   const { email } = useAuth();
@@ -58,6 +57,9 @@ const DocumentMenuBar = () => {
       ...document,
       title,
     } as DocumentInterface;
+    console.log(saving);
+    console.log(document.id);
+    console.log(updatedDocument);
     try {
       await DocumentService.update(accessToken, updatedDocument);
     } catch (error) {
@@ -115,7 +117,7 @@ const DocumentMenuBar = () => {
       </div>
       <div className="flex items-center flex-shrink-0 pl-3 gap-x-4">
         {document !== null && document.userId === userId && (
-          <ShareDocumentModal />
+          <ShareDocumentModel />
         )}
         <div className="flex items-center gap-x-2">
           <CurrentUsers />

@@ -11,6 +11,7 @@ import { AuthProvider } from './contexts/auth-context';
 import { ToastProvider } from './contexts/toast-context';
 import { DocumentProvider } from './contexts/document-context';
 import Document from './pages/document';
+import { EditorProvider } from './contexts/editor-context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -26,7 +27,9 @@ root.render(
             <Route path='/document/create' element={<AuthRoute element={<Create />} />} />
             <Route path='/document/:id' element={<AuthRoute element={
               <DocumentProvider>
-                <Document />
+                <EditorProvider>
+                  <Document />
+                </EditorProvider>
               </DocumentProvider>
             } />} />
           </Routes>

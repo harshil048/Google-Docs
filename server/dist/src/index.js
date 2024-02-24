@@ -17,11 +17,8 @@ app.use((0, cors_1.default)({
 }));
 app.use(routes_1.default);
 app.use(errorHandler_1.default);
-const port = 8080;
 models_1.default.sequelize.sync();
-// app.get("/", (req: Request, res: Response) => {
-//   res.send("Expresssdasd");
+// app.listen(port, () => {
+//   console.log(`Server is running on port: ${port}`);
 // });
-app.listen(port, () => {
-    console.log(`Server is running on port: ${port}`);
-});
+exports.default = app;
