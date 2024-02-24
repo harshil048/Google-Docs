@@ -10,13 +10,16 @@ import useAuth from "../../../hooks/use-auth";
 import { ToastContext } from "../../../contexts/toast-context";
 import validator from "validator";
 import PermissionEnum from "../../../types/enums/permission-enum";
-import DocumentUser from "../../../types/interfaces/document-user";
 import DocumentUserService from "../../../services/document-user-service";
+import DocumentUser from "../../../types/interfaces/document-user";
 import DocumentInterface from "../../../types/interfaces/document";
-import Model from "../../atoms/model/model";
-import { UserAddIcon } from "@heroicons/react/outline";
 
-const ShareDocumentModal = () => {
+import { LinkIcon, UserAddIcon } from "@heroicons/react/outline";
+import SharedUsers from "../shared-users/shared-users";
+import Spinner from "../../atoms/spinner/spinner";
+import Model from "../../atoms/model";
+
+const ShareDocumentModel = () => {
   const { document, saving, saveDocument, setDocument } =
     useContext(DocumentContext);
   const copyLinkInputRef = useRef<null | HTMLInputElement>(null);
@@ -41,25 +44,27 @@ const ShareDocumentModal = () => {
     };
 
     setLoading(true);
+
     try {
       const response = await DocumentUserService.create(accessToken, payload);
       const documentUser = response.data as DocumentUser;
       documentUser.user = { email };
 
-      success(`Document shared successfully! with ${email}`);
+      success(`Successfully shared document with ${email}`);
+
       setDocument({
         ...document,
         users: [...document.users, documentUser],
       } as DocumentInterface);
       setEmail("");
     } catch (err) {
-      error("Unable to share document. Please try again.");
+      error(`Unable to share this document with ${email}. Please try again`);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleShareEmailInputChanged = (event: ChangeEvent) => {
+  const handleShareEmailInputChange = (event: ChangeEvent) => {
     setEmail((event.target as HTMLInputElement).value);
   };
 
@@ -73,10 +78,8 @@ const ShareDocumentModal = () => {
     window.document.execCommand("copy");
   };
 
-  const handleOnKeyPress = async (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === "Enter") {
-      await shareDocument();
-    }
+  const handleOnKeyPress = async (event: KeyboardEvent) => {
+    if (event.key === "Enter") await shareDocument();
   };
 
   const updateIsPublic = (isPublic: boolean) => {
@@ -87,6 +90,57 @@ const ShareDocumentModal = () => {
 
     saveDocument(updatedDocument);
   };
+
+  const handleShareBtnClick = async () => {
+    await shareDocument();
+  };
+
+  const alreadyShared =
+    document === null ||
+    (document !== null &&
+      document.users.filter((documentUser) => documentUser.user.email === email)
+        .length > 0);
+
+  const publicAccessBtn = (
+    <div className="space-y-1">
+      <button
+        disabled={saving}
+        onClick={() => updateIsPublic(false)}
+        className="font-semibold text-blue-600 p-2 hover:bg-blue-50 rounded-md"
+      >
+        {saving && <Spinner size="sm" />}
+        <span className={`${saving && "opacity-0"}`}>
+          Change to only shared users
+        </span>
+      </button>
+      <p className="mx-2">
+        <b className="font-semibold">Public</b>
+        <span className="text-gray-600"> (Anyone with this link can view)</span>
+      </p>
+    </div>
+  );
+
+  const restrictedAccessBtn = (
+    <div className="space-y-1">
+      <button
+        disabled={saving}
+        onClick={() => updateIsPublic(true)}
+        className="font-semibold text-blue-600 p-2 hover:bg-blue-50 rounded-md"
+      >
+        {saving && <Spinner size="sm" />}
+        <span className={`${saving && "opacity-0"}`}>
+          Change to anyone with the link
+        </span>
+      </button>
+      <p className="mx-2">
+        <b className="font-semibold">Restricted</b>
+        <span className="text-gray-600">
+          {" "}
+          (Only people added can open with this link)
+        </span>
+      </p>
+    </div>
+  );
 
   return (
     <Model
@@ -127,14 +181,59 @@ const ShareDocumentModal = () => {
                 name=""
                 id=""
                 value={email !== null ? email : ""}
-                onChange={handleShareEmailInputChanged}
+                onChange={handleShareEmailInputChange}
                 placeholder="Enter email"
                 className="border-b border-blue-500 rounded-t-md p-4 w-full bg-gray-100 font-medium"
               />
-              {/* <SharedUsers
+              <SharedUsers
                 documentUsers={document.users}
                 setDocument={setDocument}
-              /> */}
+              />
+              <div className="w-full flex justify-end space-x-2">
+                <button
+                  onClick={handleShareBtnClick}
+                  disabled={
+                    loading ||
+                    email === null ||
+                    !validator.isEmail(email) ||
+                    alreadyShared
+                  }
+                  className={`${
+                    email === null || !validator.isEmail(email) || alreadyShared
+                      ? "btn-disabled"
+                      : "btn-primary"
+                  } px-6`}
+                >
+                  {loading && <Spinner size="sm" />}
+                  <span className={`${loading && "opacity-0"}`}>Share</span>
+                </button>
+              </div>
+            </div>
+            <div className="rounded-md bg-white shadow-xl p-4 space-y-4 flex flex-col">
+              <div className="m-2 flex items-center space-x-2">
+                <div className="w-8 h-8 bg-gray-400 flex justify-center items-center rounded-full text-white">
+                  <LinkIcon className="w-5 h-5 relative" />
+                </div>
+                <h1 className="text-xl font-medium">Get Link</h1>
+              </div>
+              <div>
+                <div className="flex justify-between items-center">
+                  <div className="space-y-1">
+                    {document.isPublic ? publicAccessBtn : restrictedAccessBtn}
+                  </div>
+                  <input
+                    ref={copyLinkInputRef}
+                    type="text"
+                    className="d-none opacity-0 cursor-default"
+                  />
+                  <button
+                    onClick={handleCopyLinkBtnClick}
+                    className="font-semibold text-blue-600 p-2 hover:bg-blue-50 rounded-md"
+                  >
+                    Copy Link
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         )
@@ -142,3 +241,5 @@ const ShareDocumentModal = () => {
     />
   );
 };
+
+export default ShareDocumentModel;

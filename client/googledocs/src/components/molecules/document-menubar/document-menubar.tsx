@@ -6,6 +6,7 @@ import DocumentService from "../../../services/document-service";
 import Logo from "../../atoms/logo/logo";
 import UserDropDown from "../../atoms/user-dropdown/user-dropdown";
 import useRandomBackground from "../../../hooks/use-random-bg";
+import ShareDocumentModal from "../share-document-model/share-document-model";
 // import ShareDocumentModal from "../share-document-modal/share-document-modal";
 
 const CurrentUsers = () => {
@@ -114,8 +115,7 @@ const DocumentMenuBar = () => {
       </div>
       <div className="flex items-center flex-shrink-0 pl-3 gap-x-4">
         {document !== null && document.userId === userId && (
-          // <<ShareDocumentModal />>
-          <h1>Share Button</h1>
+          <ShareDocumentModal />
         )}
         <div className="flex items-center gap-x-2">
           <CurrentUsers />

@@ -8,6 +8,6 @@ interface DocumentInterface {
   updatedAt: Date;
   userId: number;
   users: Array<DocumentUser>;
-  IsPublic: boolean;
+  isPublic: boolean;
 }
 export default DocumentInterface;
