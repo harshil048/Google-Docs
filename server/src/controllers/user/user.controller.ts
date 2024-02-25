@@ -3,6 +3,7 @@ import catchAsync from "../../middleware/catch-async";
 import { Request, Response } from "express";
 import { userService } from "../../services/user.service";
 import jwt, { VerifyErrors } from "jsonwebtoken";
+import env from "../../config/env.config";
 
 class UserController {
   public register = catchAsync(async (req: Request, res: Response) => {

@@ -3,6 +3,7 @@ import { compare, genSalt, hash } from "bcrypt";
 import jwt from "jsonwebtoken";
 import { RefreshToken } from "../db/models/refresh-token.model";
 import { mailservice } from "./mail.service";
+import env from "../config/env.config";
 
 class UserService {
   public findUserByEmail = async (email: string): Promise<User | null> => {

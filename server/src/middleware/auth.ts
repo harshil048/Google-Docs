@@ -5,6 +5,7 @@ import { User } from "../db/models/user.model";
 import { UserRole } from "../db/models/user-role.model";
 import { Role } from "../db/models/role.model";
 import { error, log } from "console";
+import env from "../config/env.config";
 
 const authenticate = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers["authorization"];
@@ -57,6 +58,6 @@ const authorize = (permittedRoles: Array<RoleEnum>) => {
         console.log(error);
         return res.sendStatus(403);
       });
-  }
+  };
 };
 export { authenticate, authorize };

@@ -3,7 +3,6 @@ import catchAsync from "../../middleware/catch-async";
 import documentService from "../../services/document.service";
 import { Document } from "../../db/models/document.model";
 import { DocumentUser } from "../../db/models/document-user.model";
-import { json } from "sequelize";
 import { validationResult } from "express-validator";
 
 class DocumentController {
