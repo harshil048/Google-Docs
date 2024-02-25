@@ -7,28 +7,7 @@ import Logo from "../../atoms/logo/logo";
 import UserDropDown from "../../atoms/user-dropdown/user-dropdown";
 import useRandomBackground from "../../../hooks/use-random-bg";
 import ShareDocumentModel from "../share-document-model";
-
-const CurrentUsers = () => {
-  const { email } = useAuth();
-  const { currentUsers } = useContext(DocumentContext);
-  const { backgroundColor } = useRandomBackground();
-  return (
-    <>
-      {Array.from(currentUsers)
-        .filter((currentUser) => currentUser !== email)
-        .map((currentUser) => {
-          return (
-            <div
-              key={currentUser}
-              className={`${backgroundColor} w-8 h-8 text-white font-semibold flex justify-center items-center rounded-full flex-shrink-0 uppercase ring-2`}
-            >
-              {currentUser[0]}
-            </div>
-          );
-        })}
-    </>
-  );
-};
+import CurrentUsers from "../current-users/current-users";
 
 const DocumentMenuBar = () => {
   const { accessToken, userId } = useAuth();

@@ -13,11 +13,10 @@ import PermissionEnum from "../../../types/enums/permission-enum";
 import DocumentUserService from "../../../services/document-user-service";
 import DocumentUser from "../../../types/interfaces/document-user";
 import DocumentInterface from "../../../types/interfaces/document";
-
 import { LinkIcon, UserAddIcon } from "@heroicons/react/outline";
 import SharedUsers from "../shared-users/shared-users";
 import Spinner from "../../atoms/spinner/spinner";
-import Model from "../../atoms/model";
+import Model from "../../atoms/model/model";
 
 const ShareDocumentModel = () => {
   const { document, saving, saveDocument, setDocument } =
@@ -56,6 +55,7 @@ const ShareDocumentModel = () => {
         ...document,
         users: [...document.users, documentUser],
       } as DocumentInterface);
+
       setEmail("");
     } catch (err) {
       error(`Unable to share this document with ${email}. Please try again`);

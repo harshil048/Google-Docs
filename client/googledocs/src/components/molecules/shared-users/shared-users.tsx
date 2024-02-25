@@ -1,19 +1,21 @@
 import { Dispatch, SetStateAction, useContext, useState } from "react";
 import DocumentUser from "../../../types/interfaces/document-user";
 import DocumentInterface from "../../../types/interfaces/document";
-import useRandomBackground from "../../../hooks/use-random-bg";
 import useAuth from "../../../hooks/use-auth";
 import { ToastContext } from "../../../contexts/toast-context";
 import { DocumentContext } from "../../../contexts/document-context";
+import DocumentService from "../../../services/document-service";
 import DocumentUserService from "../../../services/document-user-service";
+import useRandomBackground from "../../../hooks/use-random-bg";
 
-interface SharedUsersProps {
+interface SharedUserProps {
   documentUsers: Array<DocumentUser>;
   setDocument: Dispatch<SetStateAction<DocumentInterface | null>>;
 }
 
-const SharedUsers = ({ documentUsers, setDocument }: SharedUsersProps) => {
+const SharedUsers = ({ documentUsers, setDocument }: SharedUserProps) => {
   const { backgroundColor } = useRandomBackground();
+
   const { backgroundColor: sharedUserBackgroundColor } = useRandomBackground();
   const { accessToken, email } = useAuth();
   const [loading, setLoading] = useState(false);
@@ -25,10 +27,12 @@ const SharedUsers = ({ documentUsers, setDocument }: SharedUsersProps) => {
     userId: number;
   }) => {
     if (!accessToken) return;
+
     setLoading(true);
 
     try {
       await DocumentUserService.delete(accessToken, payload);
+
       setDocument({
         ...document,
         users: document?.users.filter(
@@ -38,7 +42,7 @@ const SharedUsers = ({ documentUsers, setDocument }: SharedUsersProps) => {
     } catch {
       addToast({
         color: "danger",
-        title: "Unable to remove user from document.",
+        title: "Unable to remove user",
         body: "Please try again.",
       });
     } finally {

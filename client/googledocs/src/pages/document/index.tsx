@@ -1,15 +1,15 @@
 import { useParams } from "react-router-dom";
 import useWindowSize from "../../hooks/use-window-size";
 import useDocument from "../../hooks/use-document";
-import DocumentHeader from "../../components/organisms/document-header";
+import DocumentHeader from "../../components/organisms/document-header/document-header";
 import { useContext, useEffect, useRef } from "react";
 import { DocumentContext } from "../../contexts/document-context";
-import DocumentEditor from "../../components/organisms/document-editor";
+import DocumentEditor from "../../components/organisms/document-editor/document-editor";
 
 const Document = () => {
   const { heightStr, widthStr } = useWindowSize();
   const { id: documentId } = useParams();
-  const documentHeaderRef = useRef<HTMLDivElement | null>(null);
+  const documentHeaderRef = useRef<null | HTMLDivElement>(null);
   const { loading, document } = useDocument(parseInt(documentId as string));
   const { setDocument } = useContext(DocumentContext);
 
@@ -25,12 +25,14 @@ const Document = () => {
       className="w-full h-full bg-gray flex flex-col"
     >
       {loading ? (
-        <>Loadong...</>
+        <>Loading...</>
       ) : (
         <>
           <DocumentHeader documentHeaderRef={documentHeaderRef} />
           <div
-            style={{ height: documentViewerHeight }}
+            style={{
+              height: documentViewerHeight,
+            }}
             className="w-full flex flex-col justify-start items-center overflow-hidden"
           >
             <div
@@ -45,4 +47,5 @@ const Document = () => {
     </div>
   );
 };
+
 export default Document;

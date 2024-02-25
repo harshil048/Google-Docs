@@ -19,10 +19,10 @@ import { FONTS } from "../components/atoms/font-select";
 import { DocumentContext } from "./document-context";
 import { ToastContext } from "./toast-context";
 import useAuth from "../hooks/use-auth";
+import SocketEvent from "../types/enums/socket-events-enum";
 import DocumentInterface from "../types/interfaces/document";
 import { io } from "socket.io-client";
 import { BASE_URL } from "../services/api";
-import SocketEvent from "../types/enums/socket-events-enum";
 
 interface EditorContextInterface {
   editorState: EditorState;
@@ -58,7 +58,7 @@ interface EditorProviderInterface {
 }
 
 const DEFAULT_SAVE_TIME = 1500;
-let saveInterval: null | NodeJS.Timer = null;
+let saveInterval: ReturnType<typeof setInterval> | null = null;
 
 export const EditorProvider = ({ children }: EditorProviderInterface) => {
   const [editorState, setEditorState] = useState(defaultValues.editorState);
@@ -103,12 +103,12 @@ export const EditorProvider = ({ children }: EditorProviderInterface) => {
     setSaving(true);
 
     if (saveInterval !== null) {
-      clearInterval(Number(saveInterval));
+      clearInterval(saveInterval);
     }
 
     saveInterval = setInterval(async () => {
       await saveDocument(updatedDocument);
-      if (saveInterval) clearInterval(Number(saveInterval));
+      if (saveInterval) clearInterval(saveInterval);
     }, DEFAULT_SAVE_TIME);
   };
 
