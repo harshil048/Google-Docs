@@ -38,7 +38,7 @@ class ShareController {
     });
 
     const mail = {
-      from: "kuluruvineeth8623@gmail.com",
+      from: "harshilbambhroliya048@gmail.com",
       to: sharedUser.email,
       subject: `${req.user?.email} shared a document with you!`,
       text: `Click the follwing link to view and edit the document : http://localhost:3000/document/${id}`,

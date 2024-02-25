@@ -7,7 +7,7 @@ import validator from "validator";
 import AuthService from "../../services/auth-service";
 import useAuth from "../../hooks/use-auth";
 import { ToastContext } from "../../contexts/toast-context";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../components/atoms/logo/logo";
 
 const Login = () => {
@@ -87,9 +87,11 @@ const Login = () => {
             color="secondary"
             errors={emailErrors}
           />
-          <p className="text-sm hover:underline font-semibold text-blue-500 text-left">
-            Need an account?
-          </p>
+          <Link to="/register">
+            <p className="text-sm hover:underline font-semibold text-blue-500 text-left">
+              Need an account?
+            </p>
+          </Link>
           <TextField
             value={password}
             onInput={handleOnInputPassword}

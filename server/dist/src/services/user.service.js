@@ -37,7 +37,7 @@ class UserService {
         });
         this.sendVerificationEmail = (user) => __awaiter(this, void 0, void 0, function* () {
             const mail = {
-                from: "kuluruvineeth8623@gmail.com",
+                from: "harshilbambhroliya048@gmail.com",
                 to: user.email,
                 subject: "Welcome to google docs",
                 text: `click the following link to verify email: http://localhost:3000/user/verify-email/${user.verificationToken}`,
@@ -46,7 +46,7 @@ class UserService {
         });
         this.sendPasswordResetEmail = (user) => __awaiter(this, void 0, void 0, function* () {
             const mail = {
-                from: "kuluruvineeth8623@gmail.com",
+                from: "harshilbambhroliya048@gmail.com",
                 to: user.email,
                 subject: "Reset Your Password",
                 text: `http://localhost:3000/user/reset-email/${user.passwordResetToken}`,
