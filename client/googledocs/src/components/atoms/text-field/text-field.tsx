@@ -65,7 +65,7 @@ const TextField = ({
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
               value={value}
-              className={`${TEXT_FIELD_CLASSES[color]} w-full p-2 rounded`}
+              className={`${TEXT_FIELD_CLASSES[color]} w-full p-2 rounded outline-none tracking-wider`}
               placeholder={placeholder && placeholder}
             ></input>
             {type === "password" && (

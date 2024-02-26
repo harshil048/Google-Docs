@@ -73,12 +73,12 @@ const Login = () => {
       className="w-full flex flex-col sm:justify-center items-center p-6 sm:pb-6 bg-gray-100 dark:bg-slate-900 text-primary"
       style={{ width: widthStr, height: heightStr }}
     >
-      <div className="w-full max-w-sm bg-white dark:bg-slate-800 rounded border-primary shadow-md brder dark:border-0 dark:shadow-xl p-6">
+      <div className="w-full max-w-sm bg-white dark:bg-slate-800 rounded-lg border-primary shadow-md brder dark:border-0 dark:shadow-xl p-6">
         <div className="flex flex-col space-y-4">
           <div className="w-full text-center flex flex-col justify-center items-center">
             <Logo />
             <h1 className="font-medium text-2xl">Sign In</h1>
-            <p className="font-medium">to contiue to Docs</p>
+            <p className="font-medium text-gray-400">to contiue to Docs</p>
           </div>
           <TextField
             value={email}
@@ -102,14 +102,14 @@ const Login = () => {
           />
           <button
             tabIndex={-1}
-            className="text-sm hover:underline font-semibold text-blue-500 text-left"
+            className="text-sm hover:underline tracking-wide font-semibold text-blue-500 text-left"
           >
             Forgot Password
           </button>
           <button
             onClick={loginUser}
             disabled={loading}
-            className="bg-blue-600 text-sm font-semibold text-white px-3 py-2 rounded hover:bg-blue-500 flex justify-center items-center space-x-1 active:ring-1"
+            className="bg-blue-600 text-sm tracking-wider text-white px-3 py-2 rounded hover:bg-blue-500 flex justify-center items-center space-x-1 active:ring-1"
           >
             <span className="">Login</span>
           </button>
