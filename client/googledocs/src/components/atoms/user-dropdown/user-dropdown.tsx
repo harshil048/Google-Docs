@@ -20,10 +20,42 @@ const UserDropdown = () => {
   };
 
   return (
-    <div className="relative" onBlur={() => setShowDropdown(false)}>
+    // <div
+    //   className="flex flex-col justify-center items-center"
+    //   onBlur={() => setShowDropdown(false)}
+    // >
+    //   <button
+    //     onClick={() => setShowDropdown(!showDropdown)}
+    //     className={`${backgroundColor} w-8 h-8 text-white font-semibold flex justify-center items-center rounded-full ring-2 flex-shrink-0 uppercase`}
+    //   >
+    //     {email !== null && email[0]}
+    //   </button>
+    //   <CSSTransition
+    //     nodeRef={dropdownRef}
+    //     in={showDropdown}
+    //     timeout={200}
+    //     className="fade-in my-4"
+    //     unmountOnExit
+    //     children={
+    //       <div
+    //         ref={dropdownRef}
+    //         className="top-full right-0 z-10 w-52 bg-white py-2 rounded-sm shadow-lg border "
+    //       >
+    //         <button
+    //           onClick={logoutUser}
+    //           className="w-full bg-blue-500 text-black hover:bg-gray-100 text-sm px-6 py-1 text-left"
+    //         >
+    //           Logout
+    //         </button>
+    //       </div>
+    //     }
+    //   ></CSSTransition>
+    // </div>
+    <div className="relative">
       <button
         onClick={() => setShowDropdown(!showDropdown)}
-        className={`${backgroundColor} w-8 h-8 text-white font-semibold flex justify-center items-center rounded-full ring-2 flex-shrink-0 uppercase`}
+        onBlur={() => setShowDropdown(false)}
+        className={`${backgroundColor} w-10 h-10 text-white font-semibold flex justify-center items-center rounded-full ring-2 flex-shrink-0 uppercase`}
       >
         {email !== null && email[0]}
       </button>
@@ -31,22 +63,21 @@ const UserDropdown = () => {
         nodeRef={dropdownRef}
         in={showDropdown}
         timeout={200}
-        className="fade-in"
+        classNames="fade-in"
         unmountOnExit
-        children={
-          <div
-            ref={dropdownRef}
-            className="absolute top-full mt-1 right-0 z-10 w-52 bg-white py-2 rounded-sm shadow-lg border "
+      >
+        <div
+          ref={dropdownRef}
+          className="absolute mt-1.5 top-full right-0 z-10 bg-white rounded-lg overflow-hidden shadow-xl border "
+        >
+          <button
+            onClick={logoutUser}
+            className="block w-full bg-blue-500 text-white hover:bg-blue-600 text-md px-7 py-3 text-left rounded-md"
           >
-            <button
-              onClick={logoutUser}
-              className="w-full text-black hover:bg-gray-100 text-sm px-6 py-1 text-left"
-            >
-              Logout
-            </button>
-          </div>
-        }
-      ></CSSTransition>
+            Logout
+          </button>
+        </div>
+      </CSSTransition>
     </div>
   );
 };

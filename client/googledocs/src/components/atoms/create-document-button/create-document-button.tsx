@@ -31,21 +31,25 @@ const CreateDocumentButton = () => {
 
   return (
     <div className="w-full h-80 bg-gray-100 flex justify-center items-center font-medium text-gray-700 px-4 overflow-hidden">
-      <div className="w-full h-full max-w-4xl py-4 space-y-4 overflow-auto">
-        <h1>Start a new document</h1>
+      <div className="w-full h-full max-w-4xl py-4 space-y-4 overflow-auto rounded-md">
+        <h1 className="text-lg">Start a new document</h1>
         <div className="flex items-center">
           <div className="space-y-2">
             <button
               disabled={loading}
               onClick={() => handleDocumentCreateBtnClick()}
-              className="h-52 w-40 bg-white border hover:border-blue-500 flex items-center justify-center"
+              className="h-52 w-40 bg-white border hover:border-blue-500 flex items-center justify-center rounded-md overflow-hidden"
             >
               <span className={`${loading && "opacity-0"}`}>
-                <PlusIcon className="w-16 h-16 text-red-500"></PlusIcon>
+                <img
+                  className=" text-red-500"
+                  src="https://ssl.gstatic.com/docs/templates/thumbnails/docs-blank-googlecolors.png"
+                ></img>
+                {/* <PlusIcon className="w-16 h-16 text-red-500"></PlusIcon> */}
               </span>
               {loading && <Spinner size="md"></Spinner>}
             </button>
-            <h3 className="text-sm">Blank</h3>
+            <h3 className="text-sm">Blank Document</h3>
           </div>
         </div>
       </div>

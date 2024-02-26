@@ -10,8 +10,8 @@ const DocumentSearchbar = () => {
         isFocused ? "bg-white shadow-xl" : "bg-gray-100 "
       } w-full max-w-2xl  rounded-md h-12 flex items-center text-gray-500 mr-4`}
     >
-      <div className="flex justify-center px-4 ">
-        <SearchIcon className="h-6 w-6"></SearchIcon>
+      <div className="flex justify-center px-4 rounded-xl">
+        <SearchIcon className="h-4 w-4"></SearchIcon>
       </div>
       <input
         onFocus={() => setIsFocused(true)}
@@ -19,7 +19,7 @@ const DocumentSearchbar = () => {
         type="text"
         className={`${
           isFocused ? "bg-white" : "bg-gray-100"
-        } w-full h-full pr-4 font-medium`}
+        } w-full h-full rounded-xl pr-4 font-medium outline-none`}
         placeholder="Search"
         name=""
         id=""
