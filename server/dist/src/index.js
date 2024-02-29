@@ -13,7 +13,16 @@ app.use(express_1.default.json());
 app.use((0, cors_1.default)({
     origin: "https://google-docs-mocha.vercel.app",
     credentials: true,
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    methods: [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE",
+        "PATCH",
+        "OPTIONS",
+        "HEAD",
+        "CONNECT",
+    ],
 }));
 app.use(routes_1.default);
 app.use(errorHandler_1.default);
