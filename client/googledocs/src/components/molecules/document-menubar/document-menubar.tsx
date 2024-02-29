@@ -60,34 +60,34 @@ const DocumentMenuBar = () => {
             onBlur={(event) => handleTitleInputBlur(event)}
             onChange={(event) => handleTitleInputChange(event)}
             value={document?.title ? document?.title : ""}
-            className="font-medium text-lg px-2 pt-2"
+            className="font-medium text-xl px-2 pt-2"
             name=""
             id=""
-            placeholder="Untitled Document"
+            placeholder="Untitled document"
           />
           <div className="flex items-center">
-            <button className="text-sm whitespace-nowrap px-2 py-1 font-medium hover:bg-gray-100 rounded-md">
+            <button className="text-md whitespace-nowrap px-2 py-1 font-medium hover:bg-gray-100 rounded-md">
               File
             </button>
-            <button className="text-sm whitespace-nowrap px-2 py-1 font-medium hover:bg-gray-100 rounded-md">
+            <button className="text-md whitespace-nowrap px-2 py-1 font-medium hover:bg-gray-100 rounded-md">
               Edit
             </button>
-            <button className="text-sm whitespace-nowrap px-2 py-1 font-medium hover:bg-gray-100 rounded-md">
+            <button className="text-md whitespace-nowrap px-2 py-1 font-medium hover:bg-gray-100 rounded-md">
               View
             </button>
-            <button className="text-sm whitespace-nowrap px-2 py-1 font-medium hover:bg-gray-100 rounded-md">
+            <button className="text-md whitespace-nowrap px-2 py-1 font-medium hover:bg-gray-100 rounded-md">
               Insert
             </button>
-            <button className="text-sm whitespace-nowrap px-2 py-1 font-medium hover:bg-gray-100 rounded-md">
+            <button className="text-md whitespace-nowrap px-2 py-1 font-medium hover:bg-gray-100 rounded-md">
               Format
             </button>
-            <button className="text-sm whitespace-nowrap px-2 py-1 font-medium hover:bg-gray-100 rounded-md">
+            <button className="text-md whitespace-nowrap px-2 py-1 font-medium hover:bg-gray-100 rounded-md">
               Tools
             </button>
-            <button className="text-sm whitespace-nowrap px-2 py-1 font-medium hover:bg-gray-100 rounded-md">
+            <button className="text-md whitespace-nowrap px-2 py-1 font-medium hover:bg-gray-100 rounded-md">
               Add-ons
             </button>
-            <button className="text-sm whitespace-nowrap px-2 py-1 font-medium hover:bg-gray-100 rounded-md">
+            <button className="text-md whitespace-nowrap px-2 py-1 font-medium hover:bg-gray-100 rounded-md">
               Help
             </button>
             {saving && <p className="text-sm text-gray-500 px-2">Saving...</p>}

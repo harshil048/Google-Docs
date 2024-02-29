@@ -3,13 +3,13 @@ import { EditorContext } from "../../../contexts/editor-context";
 import { Editor } from "draft-js";
 
 const DocumentEditor = () => {
-  const { editorState, editorRef, handleEditorChange, focusEditor } =
+  const { editorState, editorRef, focusEditor, handleEditorChange } =
     useContext(EditorContext);
 
   return (
     <div
       style={{ height: "1100px", width: "850px" }}
-      className="bg-white shadow-md flex-shrink-0 cursor-text p-12"
+      className="bg-white shadow-lg border flex-shrink-0 cursor-text p-12"
       onClick={focusEditor}
     >
       <Editor

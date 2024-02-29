@@ -13,7 +13,11 @@ import PermissionEnum from "../../../types/enums/permission-enum";
 import DocumentUserService from "../../../services/document-user-service";
 import DocumentUser from "../../../types/interfaces/document-user";
 import DocumentInterface from "../../../types/interfaces/document";
-import { LinkIcon, UserAddIcon } from "@heroicons/react/outline";
+import {
+  LinkIcon,
+  LockClosedIcon,
+  UserAddIcon,
+} from "@heroicons/react/outline";
 import SharedUsers from "../shared-users/shared-users";
 import Spinner from "../../atoms/spinner/spinner";
 import Model from "../../atoms/model/model";
@@ -109,12 +113,12 @@ const ShareDocumentModel = () => {
         className="font-semibold text-blue-600 p-2 hover:bg-blue-50 rounded-md"
       >
         {saving && <Spinner size="sm" />}
-        <span className={`${saving && "opacity-0"}`}>
+        <span className={`${saving && "opacity-0"} text-base font-medium`}>
           Change to only shared users
         </span>
       </button>
       <p className="mx-2">
-        <b className="font-semibold">Public</b>
+        <b className="font-semibold">Public - </b>
         <span className="text-gray-600">Anyone with this link can view</span>
       </p>
     </div>
@@ -125,16 +129,17 @@ const ShareDocumentModel = () => {
       <button
         disabled={saving}
         onClick={() => updateIsPublic(true)}
-        className="font-semibold text-blue-600 p-2 hover:bg-blue-50 rounded-md"
+        className="font-semibold text-blue-600 p-2 hover:bg-blue-100 rounded-3xl my-3"
       >
         {saving && <Spinner size="sm" />}
-        <span className={`${saving && "opacity-0"}`}>
+        <span className={`${saving && "opacity-0"} tracking-wide px-3`}>
           Change to anyone with the link
         </span>
       </button>
       <p className="mx-2">
-        <b className="font-semibold">Restricted</b>
+        <b className="font-semibold">Restricted - </b>
         <span className="text-gray-600">
+          {" "}
           Only people added can open with this link
         </span>
       </p>
@@ -144,20 +149,8 @@ const ShareDocumentModel = () => {
   return (
     <Model
       button={
-        <button className="btn-primary">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-4 w-4"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-              clipRule="evenodd"
-            />
-          </svg>
-          <span>Share</span>
+        <button className="flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-3xl hover:bg-blue-700 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">
+          Share Document
         </button>
       }
       content={
@@ -188,7 +181,7 @@ const ShareDocumentModel = () => {
                 documentUsers={document.users}
                 setDocument={setDocument}
               />
-              <div className="w-full flex justify-end space-x-2">
+              <div className="w-full flex justify-end ">
                 <button
                   onClick={handleShareBtnClick}
                   disabled={
@@ -201,10 +194,16 @@ const ShareDocumentModel = () => {
                     email === null || !validator.isEmail(email) || alreadyShared
                       ? "btn-disabled"
                       : "btn-primary"
-                  } px-6`}
+                  } px-7 py-2 bg-blue-600 rounded-3xl hover:bg-blue-500 hover:shadow-lg`}
                 >
                   {loading && <Spinner size="sm" />}
-                  <span className={`${loading && "opacity-0"}`}>Share</span>
+                  <span
+                    className={`${
+                      loading && "opacity-0"
+                    } text-white text-[16px]`}
+                  >
+                    Share
+                  </span>
                 </button>
               </div>
             </div>
@@ -227,9 +226,18 @@ const ShareDocumentModel = () => {
                   />
                   <button
                     onClick={handleCopyLinkBtnClick}
-                    className="font-semibold text-blue-600 p-2 hover:bg-blue-50 rounded-md"
+                    className="flex justify-center tracking-wide text-[16px] text-blue-600 border border-black px-6 py-2 hover:bg-blue-50 rounded-3xl space-x-2"
                   >
-                    Copy Link
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      focusable="false"
+                      className="fill-current text-blue-600"
+                    >
+                      <path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"></path>
+                    </svg>
+                    <span className="whitespace-nowrap my-auto">Copy link</span>
                   </button>
                 </div>
               </div>

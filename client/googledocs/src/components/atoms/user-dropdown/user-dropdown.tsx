@@ -55,7 +55,7 @@ const UserDropdown = () => {
       <button
         onClick={() => setShowDropdown(!showDropdown)}
         onBlur={() => setShowDropdown(false)}
-        className={`${backgroundColor} w-10 h-10 text-white font-semibold flex justify-center items-center rounded-full ring-2 flex-shrink-0 uppercase`}
+        className={`${backgroundColor} w-10 h-10 text-white font-medium flex justify-center items-center rounded-full flex-shrink-0 uppercase hover:shadow-2xl`}
       >
         {email !== null && email[0]}
       </button>
@@ -68,11 +68,11 @@ const UserDropdown = () => {
       >
         <div
           ref={dropdownRef}
-          className="absolute mt-1.5 top-full right-0 z-10 bg-white rounded-lg overflow-hidden shadow-xl border "
+          className="absolute mt-1.5 top-full right-0 z-10 rounded-lg "
         >
           <button
             onClick={logoutUser}
-            className="block w-full bg-blue-500 text-white hover:bg-blue-600 text-md px-7 py-3 text-left rounded-md"
+            className="block w-full bg-blue-500 text-white hover:bg-blue-600 text-md px-6 py-2 text-left rounded-3xl shadow-xl"
           >
             Logout
           </button>

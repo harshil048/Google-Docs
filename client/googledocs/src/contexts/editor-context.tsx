@@ -82,7 +82,7 @@ export const EditorProvider = ({ children }: EditorProviderInterface) => {
 
   //Send Changes
   const handleEditorChange = (editorState: EditorState) => {
-    setEditorState(EditorState.moveSelectionToEnd(editorState));
+    setEditorState(editorState);
 
     if (socket === null) return;
 
