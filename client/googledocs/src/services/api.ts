@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const BASE_URL = "https://google-docs-smoky-one.vercel.app/";
+export const BASE_URL = "https://google-docs-backend.vercel.app/";
 
 const API = axios.create({
   baseURL: BASE_URL,

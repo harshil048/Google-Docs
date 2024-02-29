@@ -8,7 +8,7 @@ const app: Express = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://google-docs-smoky-one.vercel.app",
+    origin: "https://google-docs-backend.vercel.app/",
     credentials: true,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   })
