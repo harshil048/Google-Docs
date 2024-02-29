@@ -4,7 +4,6 @@ import { Server } from "socket.io";
 import jwt, { VerifyErrors } from "jsonwebtoken";
 import documentService from "./services/document.service";
 import SocketEvent from "./types/enums/socket-events-enum";
-import cors from "cors";
 
 const port = 8080;
 
@@ -16,22 +15,7 @@ const io = new Server(server, {
     methods: "*",
   },
 });
-app.use(
-  cors({
-    origin: "*",
-    credentials: true,
-    methods: [
-      "GET",
-      "POST",
-      "PUT",
-      "DELETE",
-      "PATCH",
-      "OPTIONS",
-      "HEAD",
-      "CONNECT",
-    ],
-  })
-);
+
 server.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
