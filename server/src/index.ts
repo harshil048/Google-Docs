@@ -8,7 +8,7 @@ const app: Express = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: "*",
+    origin: "https://google-docs-frontend-steel.vercel.app",
     methods: "*",
   })
 );

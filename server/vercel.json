@@ -5,17 +5,16 @@
       "src": "server/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "buildCommand": "npm install && npm run build",
         "outputDirectory": "server/dist"
       }
     },
     {
-      "src": "server/dist/src/server.js",
+      "src": "server/dist/src/index.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     { "src": "/server/dist/(.*)", "dest": "/server/dist/$1" },
-    { "src": "/(.*)", "dest": "/server/dist/src/server.js" }
+    { "src": "/(.*)", "dest": "/server/dist/src/index.js" }
   ]
 }
