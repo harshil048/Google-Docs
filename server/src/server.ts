@@ -18,7 +18,7 @@ const io = new Server(server, {
 });
 app.use(
   cors({
-    origin: "https://google-docs-mocha.vercel.app",
+    origin: "*",
     credentials: true,
     methods: [
       "GET",
