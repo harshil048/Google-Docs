@@ -8,7 +8,9 @@ const app: Express = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: "*",
+    origin: "https://google-docs-eight.vercel.app",
+    credentials: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   })
 );
 app.use(router);
