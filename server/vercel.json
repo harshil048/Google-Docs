@@ -1,22 +1,10 @@
 {
   "version": 2,
+  "name": "Google-Docs",
   "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "buildCommand": "npm install && npm run build"
-      }
-    },
-    {
-      "src": "dist/src/server.js",
-      "use": "@vercel/node"
-    }
+     { "src": "dist/src/server.js", "use": "@vercel/node" }
   ],
   "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "dist/src/server.js"
-    }
+     { "src": "/(.*)", "dest": "dist/src/server.js" }
   ]
 }
