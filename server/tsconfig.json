@@ -109,6 +109,6 @@
     "rootDir": "./",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "typeRoots": ["src/types/interfaces", "./node_modules/@types"]
+    "typeRoots": ["src/types/interfaces", "./node_modules/@types"],
   }
 }
