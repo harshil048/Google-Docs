@@ -42,6 +42,6 @@ const env = {
   REFRESH_TOKEN_EXPIRATION: process.env.REFRESH_TOKEN_EXPIRATION,
   EMAIL_VERIFICATION_SECRET: process.env.EMAIL_VERIFICATION_SECRET,
 };
-console.log(env);
+// console.log(env);
 
 export default env;
