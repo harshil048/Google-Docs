@@ -33,6 +33,7 @@
     "@types/node": "^20.11.16",
     "@types/nodemailer": "^6.4.14",
     "@types/sequelize": "^4.28.20",
+    "@types/socket.io": "^3.0.2",
     "concurrently": "^8.2.2",
     "nodemon": "^3.0.3",
     "pre-commit": "^1.2.2",
