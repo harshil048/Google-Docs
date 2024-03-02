@@ -16,7 +16,7 @@ const AuthService = {
   },
   logout: (accessToken: string) => {
     return API.delete("auth/logout", {
-      headers: {Authorization: `Bearer ${accessToken}`}
+      headers: { Authorization: `Bearer ${accessToken}` },
     });
   },
   verifyEmail: (token: string) => {
