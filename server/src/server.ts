@@ -8,6 +8,7 @@ import db from "./db/models";
 import router from "./routes";
 import errorHandler from "./middleware/errorHandler";
 import cors from "cors";
+import env from "./config/env.config";
 
 const app: Express = express();
 app.use(express.json());
@@ -25,7 +26,7 @@ app.use(errorHandler);
 
 db.sequelize.sync();
 
-const port = 8080;
+const port = env.PORT || 8080;
 
 const server = http.createServer(app);
 

@@ -22,6 +22,7 @@ const models_1 = __importDefault(require("./db/models"));
 const routes_1 = __importDefault(require("./routes"));
 const errorHandler_1 = __importDefault(require("./middleware/errorHandler"));
 const cors_1 = __importDefault(require("cors"));
+const env_config_1 = __importDefault(require("./config/env.config"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)({
@@ -34,7 +35,7 @@ app.use((0, cors_1.default)({
 app.use(routes_1.default);
 app.use(errorHandler_1.default);
 models_1.default.sequelize.sync();
-const port = 8080;
+const port = env_config_1.default.PORT || 8080;
 const server = http_1.default.createServer(app);
 const io = new socket_io_1.Server(server, {
     cors: {
