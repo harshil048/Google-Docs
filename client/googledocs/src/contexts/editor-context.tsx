@@ -159,7 +159,7 @@ export const EditorProvider = ({ children }: EditorProviderInterface) => {
     const handler = (rawDraftContentState: RawDraftContentState) => {
       const contentState = convertFromRaw(rawDraftContentState);
       const newEditorState = EditorState.createWithContent(contentState);
-      setEditorState(EditorState.moveFocusToEnd(newEditorState));
+      setEditorState(newEditorState);
     };
 
     socket.current.on(SocketEvent.RECEIVE_CHANGES, handler);
