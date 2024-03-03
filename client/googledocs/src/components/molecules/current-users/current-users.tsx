@@ -16,7 +16,7 @@ const CurrentUsers = () => {
           return (
             <div
               key={currentUser}
-              className={`${backgroundColor} w-8 h-8 text-white font-semibold flex justify-center items-center rounded-full flex-shrink-0 uppercase ring-2`}
+              className={`${backgroundColor} w-10 h-10 text-white font-medium flex justify-center items-center rounded-full flex-shrink-0 uppercase hover:shadow-2xl`}
             >
               {currentUser[0]}
             </div>

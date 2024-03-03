@@ -122,7 +122,7 @@ export const EditorProvider = ({ children }: EditorProviderInterface) => {
         JSON.parse(document.content) as RawDraftContentState
       );
       const newEditorState = EditorState.createWithContent(contentState);
-      setEditorState(newEditorState);
+      setEditorState(EditorState.moveFocusToEnd(newEditorState));
     } catch {
       error("Error when loading document.");
     } finally {
@@ -159,7 +159,7 @@ export const EditorProvider = ({ children }: EditorProviderInterface) => {
     const handler = (rawDraftContentState: RawDraftContentState) => {
       const contentState = convertFromRaw(rawDraftContentState);
       const newEditorState = EditorState.createWithContent(contentState);
-      setEditorState(newEditorState);
+      setEditorState(EditorState.moveFocusToEnd(newEditorState));
     };
 
     socket.current.on(SocketEvent.RECEIVE_CHANGES, handler);

@@ -4,17 +4,15 @@ import { Navigate } from "react-router-dom";
 
 const AuthRoute = ({ element }: { element: JSX.Element }) => {
   const { isAuthenticated, loadingAuth, refershAccessToken } = useAuth();
-  
-  useEffect(()=>{
+
+  useEffect(() => {
     refershAccessToken();
+  }, []);
 
-  },[]);
-
-  if(loadingAuth){
+  if (loadingAuth) {
     return <></>;
-  }
-  else{
-    if(isAuthenticated) return element;
+  } else {
+    if (isAuthenticated) return element;
     else return <Navigate to="/login" />;
   }
 };
