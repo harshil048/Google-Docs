@@ -4,6 +4,7 @@ import {
   convertToRaw,
   convertFromRaw,
   RawDraftContentState,
+  RichUtils,
 } from "draft-js";
 import {
   Dispatch,
@@ -35,6 +36,8 @@ interface EditorContextInterface {
   focusEditor: () => void;
   currentFont: string;
   setCurrentFont: Dispatch<SetStateAction<string>>;
+  toggleInlineStyle: (style: string) => void;
+  toggleFontSize: (fontSize: string) => void;
 }
 
 const defaultValues = {
@@ -48,6 +51,8 @@ const defaultValues = {
   focusEditor: () => {},
   currentFont: FONTS[0],
   setCurrentFont: () => {},
+  toggleInlineStyle: () => {},
+  toggleFontSize: () => {},
 };
 
 export const EditorContext =
@@ -78,6 +83,14 @@ export const EditorProvider = ({ children }: EditorProviderInterface) => {
     if (editorRef === null || editorRef.current === null) return;
 
     editorRef.current.focus();
+  };
+
+  const toggleInlineStyle = (style: string) => {
+    setEditorState(RichUtils.toggleInlineStyle(editorState, style));
+  };
+
+  const toggleFontSize = (fontSize: string) => {
+    setEditorState(RichUtils.toggleInlineStyle(editorState, fontSize));
   };
 
   //Send Changes
@@ -197,6 +210,8 @@ export const EditorProvider = ({ children }: EditorProviderInterface) => {
         handleEditorChange,
         focusEditor,
         setCurrentFont,
+        toggleInlineStyle,
+        toggleFontSize,
       }}
     >
       {children}

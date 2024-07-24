@@ -20,7 +20,7 @@ root.render(
       <AuthProvider>
         <ToastProvider>
           <Routes>
-            <Route path='/' element={<h1>I am Home Page</h1>} />
+            <Route path='/' element={<Login />} />
             <Route path='/register' element={<Register />} />
             <Route path='/login' element={<Login />} />
             <Route path='/user/verify-email/:token' element={<VerifyEmail />} />

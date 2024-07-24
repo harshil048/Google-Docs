@@ -4,6 +4,7 @@ interface IconButtonProps {
   icon: JSX.Element;
   tooltip: string;
   onClick: Function;
+  onMouseDown?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const IconButton = ({ icon, tooltip, onClick }: IconButtonProps) => {

@@ -48,6 +48,7 @@ class ShareController {
 
     return res.status(201).json(documentUser);
   });
+  
   public delete = catchAsync(async (req: Request, res: Response) => {
     const err = validationResult(req);
     if (!err.isEmpty()) return res.sendStatus(400).json(err);

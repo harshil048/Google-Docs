@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { EditorContext } from "../../../contexts/editor-context";
 import { Editor } from "draft-js";
+import { customStyleMap } from "../../../utils/constants";
 
 const DocumentEditor = () => {
   const { editorState, editorRef, focusEditor, handleEditorChange } =
@@ -16,6 +17,7 @@ const DocumentEditor = () => {
         ref={editorRef}
         editorState={editorState}
         onChange={handleEditorChange}
+        customStyleMap={customStyleMap}
       />
     </div>
   );

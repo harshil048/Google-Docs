@@ -17,3 +17,24 @@ export const colors = [
   "bg-pink-700",
   "bg-rose-700",
 ];
+
+const FONT_SIZES = {
+  SMALL: "FONT_SIZE_SMALL",
+  MEDIUM: "FONT_SIZE_MEDIUM",
+  LARGE: "FONT_SIZE_LARGE",
+};
+
+// Custom style map for Draft.js editor
+const customStyleMap = {
+  FONT_SIZE_SMALL: {
+    fontSize: "12px",
+  },
+  FONT_SIZE_MEDIUM: {
+    fontSize: "16px",
+  },
+  FONT_SIZE_LARGE: {
+    fontSize: "20px",
+  },
+};
+
+export { FONT_SIZES, customStyleMap };
